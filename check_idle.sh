@@ -8,7 +8,7 @@ DISK_IDLE_THRESHOLD=1  # in KB/s
 CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk '{print 100 - $1}')
 
 # Get the disk I/O in KB/s (read and write)
-DISK_IO=$(iostat -d 1 2 | awk 'NR==8 {print $3 + $4}')
+DISK_IO=$(iostat -d 1  | awk 'NR==6 {print $3 + $4}')
 
 # Check for active SSH connections
 SSH_CONNECTIONS=$(ss -t state established '( sport = :ssh )' | grep -c ssh)
