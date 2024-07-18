@@ -11,7 +11,7 @@ CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | sed "s/.*, *\([0-9.]*\)%* id.*/\1/" | awk
 DISK_IO=$(iostat -d 1 2 | awk 'NR==8 {print $3 + $4}')
 
 # Check for active SSH connections
-SSH_CONNECTIONS=$(who | grep -c 'ssh')
+SSH_CONNECTIONS=$(ss -t state established '( sport = :ssh )' | grep -c ssh)
 
 echo "Current CPU Usage: $CPU_USAGE%"
 echo "Current Disk I/O: $DISK_IO KB/s"
